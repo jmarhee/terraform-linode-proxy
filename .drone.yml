@@ -11,7 +11,7 @@ steps:
   commands:
   - apt update
   - apt install -y curl unzip openssh-client
-  - ssh-keygen -t rsa -b 4096 -C "jmarhee+drone@interiorae.com" -f drone-key-$DRONE_COMMIT -P ""
+  - ssh-keygen -e -t rsa -b 4096 -C "jmarhee+drone@interiorae.com" -f drone-key-$DRONE_COMMIT -P ""
   - export TF_VAR_ssh_key="./drone-key-$DRONE_COMMIT"
   - curl --silent --output terraform.zip "https://releases.hashicorp.com/terraform/0.12.29/terraform_0.12.29_linux_amd64.zip"
   - unzip terraform.zip ; rm -f terraform.zip; chmod +x terraform
