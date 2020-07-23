@@ -10,7 +10,9 @@ steps:
       from_secret: linode_token
   commands:
   - apt update
-  - apt install -y curl unzip
+  - apt install -y curl unzip openssh-client
+  - ssh-keygen -t rsa -b 4096 -C "jmarhee+drone@interiorae.com" -f drone-key-$DRONE_COMMIT -P ""
+  - export TF_VAR_ssh_key=drone-key-$DRONE_COMMIT
   - curl --silent --output terraform.zip "https://releases.hashicorp.com/terraform/0.12.29/terraform_0.12.29_linux_amd64.zip"
   - unzip terraform.zip ; rm -f terraform.zip; chmod +x terraform
   - mkdir -p ${HOME}/bin ; export PATH=${PATH}:${HOME}/bin; mv terraform ${HOME}/bin/
@@ -19,5 +21,5 @@ steps:
   - terraform validate
   - export TF_VAR_set_osx_proxy=false
   - export TF_VAR_open_browser=false
-  - terraform apply -auto-approve
+  - if terraform apply -auto-approve; then "Terraform Applied"; else echo "Apply Failed"; terraform destroy -auto-approve; fi
   - terraform destroy -auto-approve
