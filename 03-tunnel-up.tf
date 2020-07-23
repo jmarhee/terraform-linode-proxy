@@ -12,6 +12,28 @@ resource "null_resource" "tunnel_connection" {
 resource "null_resource" "test_tunnel" {
   depends_on = [null_resource.tunnel_connection]
   provisioner "local-exec" {
-    command = "sleep 10; curl -s --socks5-hostname http://127.0.0.1:8888 -L http://ipinfo.io/json"
+    environment = {
+      all_proxy = "socks://127.0.0.1:8888/"
+    }
+    command = "sleep 10; curl -s --socks5-hostname $all_proxy -L http://ipinfo.io/json"
+  }
+}
+
+resource "null_resource" "set_osx_proxy" {
+  depends_on = [null_resource.test_tunnel]
+  count      = var.set_osx_proxy == true ? 1 : 0
+  provisioner "local-exec" {
+    command = "networksetup -setsocksfirewallproxy wi-fi 127.0.0.1 8888"
+  }
+}
+
+resource "null_resource" "open_browser" {
+  depends_on = [null_resource.test_tunnel]
+  count      = var.open_browser == true ? 1 : 0
+  provisioner "local-exec" {
+    environment = {
+      all_proxy = "socks://127.0.0.1:8888/"
+    }
+    command = var.browser_command
   }
 }
