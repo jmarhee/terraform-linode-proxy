@@ -7,7 +7,7 @@ variable "ssh_key" {
 }
 variable "open_browser" {
   default     = true
-  description = "Open Chrome (OS X Only) with Proxy set"
+  description = "Opens the browser per your browser_command variable specification"
 }
 variable "browser_command" {
   default     = "null"
