@@ -10,7 +10,7 @@ steps:
       from_secret: linode_token
   commands:
   - apt update
-  - apt install -y curl
+  - apt install -y curl unzip
   - curl --silent --output terraform.zip "https://releases.hashicorp.com/terraform/0.12.29/terraform_0.12.29_linux_amd64.zip"
   - unzip terraform.zip ; rm -f terraform.zip; chmod +x terraform
   - mkdir -p ${HOME}/bin ; export PATH=${PATH}:${HOME}/bin; mv terraform ${HOME}/bin/
