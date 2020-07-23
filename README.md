@@ -1,6 +1,8 @@
 SOCKS Proxy Server on Linode
 ===
 
+[![Build Status](https://cloud.drone.io/api/badges/jmarhee/terraform-linode-proxy/status.svg)](https://cloud.drone.io/jmarhee/terraform-linode-proxy)
+
 Deploys a `nanode` instance on [Linode](linode.com) via Terraform for use as an SSH tunnel SOCKS v5 proxy server.
 
 Setup
