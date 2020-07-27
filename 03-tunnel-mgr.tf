@@ -23,7 +23,11 @@ resource "null_resource" "set_osx_proxy" {
   depends_on = [null_resource.test_tunnel]
   count      = var.set_osx_proxy == true ? 1 : 0
   provisioner "local-exec" {
-    command = "networksetup -setsocksfirewallproxy wi-fi 127.0.0.1 8888"
+    command = "chmod +x scripts/proxy_status.sh; ./scripts/proxy_status.sh"
+    environment = {
+      HOST = linode_instance.tunnel.ip_address
+      USER = var.ssh_user
+    }
   }
 }
 

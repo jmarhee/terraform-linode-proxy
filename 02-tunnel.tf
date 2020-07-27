@@ -2,8 +2,8 @@ resource "random_string" "tunnel_label" {
   length      = 6
   special     = false
   upper       = false
-  min_lower   = 6
-  min_numeric = 6
+  min_lower   = 3
+  min_numeric = 3
 }
 
 resource "linode_instance" "tunnel" {
