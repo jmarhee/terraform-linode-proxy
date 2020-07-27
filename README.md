@@ -36,14 +36,6 @@ set_osx_proxy   = true
 
 if you are on OS X, you can use the `set_osx_proxy` option above to enable the proxy before launching the browser as well. Otherwise, `all_proxy` is set when the `browser_command` is run (which sets the proxy on most Linux systems).
 
-**Note for OS X Users**: You will need to disable the proxy when you are done using the proxy (or after you destroy it, if you are recycling the instance). You can do this by running:
-
-```bash
-networksetup -setsocksfirewallproxystate wi-fi off
-```
-
-after you've run `terraform destroy`.
-
 Verifying
 ---
 
@@ -73,3 +65,11 @@ in order to proxy through xx.xx.xx.xx
 ```
 
 This latter address will be your host address on Linode, which you can check to confirm is online and troubleshoot connectivity further. 
+
+If you are on OS X, and after `destroy`, you are receiving an error indicating the proxy is no longer available, you may need to manually deconfigure the proxy configuration by running:
+
+```bash
+networksetup -setsocksfirewallproxystate wi-fi off
+```
+
+on your local machine. 
