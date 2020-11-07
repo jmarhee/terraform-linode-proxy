@@ -66,6 +66,12 @@ in order to proxy through xx.xx.xx.xx
 
 This latter address will be your host address on Linode, which you can check to confirm is online and troubleshoot connectivity further. 
 
+If, on OS X,  the node launches properly and there is an `ssh` process active, but you have not been connected to the proxy, run:
+
+```bash
+USER=root HOST=${output_host_ip} scripts/proxy_status.sh
+```
+
 If you are on OS X, and after `destroy`, you are receiving an error indicating the proxy is no longer available, you may need to manually deconfigure the proxy configuration by running:
 
 ```bash
