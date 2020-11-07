@@ -29,6 +29,10 @@ resource "null_resource" "set_osx_proxy" {
       USER = var.ssh_user
     }
   }
+  provisioner "local-exec" {
+    when    = "destroy"
+    command = "networksetup -setsocksfirewallproxystate wi-fi off"
+  }
 }
 
 resource "null_resource" "open_browser" {

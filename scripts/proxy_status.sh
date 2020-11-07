@@ -1,18 +1,9 @@
 #!/bin/bash
 
-proxy_status () {
-
-	while true; do \
-	    if [ "$(ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -q ${USER}@${HOST} exit ; echo $?)" = "0" ]; then \
-	    	sleep 5; continue
-	    else
-	        networksetup -setsocksfirewallproxystate wi-fi off
-	        break
-	    fi
-	done
-
+connect_loop () {
+	ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -q ${USER}@${HOST} "while true; do sleep 30; done" ; networksetup -setsocksfirewallproxy wi-fi 127.0.0.1 8888
 }
 
 networksetup -setsocksfirewallproxy wi-fi 127.0.0.1 8888
-export -f proxy_status
-nohup USER=${USER} HOST=${HOST} proxy_status &>/dev/null &
+export -f connect_loop
+nohup USER=${USER} HOST=${HOST} connect_loop &>/dev/null &
