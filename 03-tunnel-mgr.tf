@@ -30,7 +30,7 @@ resource "null_resource" "set_osx_proxy" {
     }
   }
   provisioner "local-exec" {
-    when    = "destroy"
+    when    = destroy
     command = "networksetup -setsocksfirewallproxystate wi-fi off"
   }
 }
