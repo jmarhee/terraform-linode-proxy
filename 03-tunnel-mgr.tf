@@ -31,7 +31,7 @@ resource "null_resource" "set_osx_proxy" {
   }
   provisioner "local-exec" {
     when    = destroy
-    command = "networksetup -setsocksfirewallproxystate wi-fi off"
+    command = "networksetup -setsocksfirewallproxystate wi-fi off; rm nohup.out"
   }
 }
 
