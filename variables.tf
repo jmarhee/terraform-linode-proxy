@@ -17,3 +17,7 @@ variable "set_osx_proxy" {
   default     = false
   description = "Sets OS X SOCKS Proxy (all_proxy is set for other OS that use this variable to specify a proxy when you enable open_browser)"
 }
+variable "region" {
+  default     = "us-central"
+  description = "Linode Region"
+}
