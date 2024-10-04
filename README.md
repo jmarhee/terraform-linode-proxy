@@ -34,7 +34,15 @@ browser_command = "open -a '/Applications/Google Chrome.app' --args --incognito"
 set_osx_proxy   = true
 ```
 
-if you are on OS X, you can use the `set_osx_proxy` option above to enable the proxy before launching the browser as well. Otherwise, `all_proxy` is set when the `browser_command` is run (which sets the proxy on most Linux systems).
+for Safari users, you can use:
+
+```bash
+browser_command = "osascript -e 'tell application \"Safari\" to activate' -e 'delay 0.5' -e 'tell application \"System Events\" to keystroke \"N\" using {command down, shift down}'"
+```
+
+to open a private browser window.
+
+If you are on OS X, you can use the `set_osx_proxy` option above to enable the proxy before launching the browser as well. Otherwise, `all_proxy` is set when the `browser_command` is run (which sets the proxy on most Linux systems).
 
 Verifying
 ---
@@ -64,7 +72,7 @@ Tunnel_Host = Set SOCKSv5 host to:
 in order to proxy through xx.xx.xx.xx
 ```
 
-This latter address will be your host address on Linode, which you can check to confirm is online and troubleshoot connectivity further. 
+This latter address will be your host address on Linode, which you can check to confirm is online and troubleshoot connectivity further.
 
 If, on OS X,  the node launches properly and there is an `ssh` process active, but you have not been connected to the proxy, run:
 
@@ -78,4 +86,4 @@ If you are on OS X, and after `destroy`, you are receiving an error indicating t
 networksetup -setsocksfirewallproxystate wi-fi off
 ```
 
-on your local machine. 
+on your local machine.
