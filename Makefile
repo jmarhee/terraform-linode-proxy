@@ -9,17 +9,17 @@ create-release:
 proxy-up:
 	terraform apply -auto-approve
 
-proxy-down: 
+proxy-down:
 	terraform destroy -auto-approve
 
 proxy-status:
 	if [ "$(curl -s ipinfo.io/json | jq .ip)" = "$(terraform state show linode_instance.tunnel | grep ip_address | awk '{print $3}')" ]; then echo "Connected."; else echo "Tunnel not setup, or no Terraform state detected. (Check 'terraform state list' to see if Linode is created, or check IP at https://ipinfo.io/json)"; fi
 
 proxy-test:
-	curl http://ipinfo.io/json
+	curl -s --socks5-hostname http://127.0.0.1:8888 -L http://ipinfo.io/json
 
 mac-proxy-down:
-	networksetup -setsocksfirewallproxystate wi-fi off	
+	networksetup -setsocksfirewallproxystate wi-fi off
 
 mac-proxy-reconnect:
 	# If you have not destroyed the proxy server, and wish to simply reconnect.
